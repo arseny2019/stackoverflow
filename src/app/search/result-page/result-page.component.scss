@@ -1,0 +1,29 @@
+@import "src/assets/scss/vars";
+
+::ng-deep {
+
+  .table-head {
+    color: white;
+    background-color: $main-black;
+  }
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 20% 30% 20% 30%;
+  }
+
+  .cell {
+    padding: 15px 20px;
+    @include font(18, 22, 400);
+
+    @include less-than-mobile {
+      @include font(14, 18, 400);
+    }
+  }
+}
+
+.load-more-button {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 32px;
+}

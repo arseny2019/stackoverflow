@@ -1,0 +1,59 @@
+<div class="form-page-container">
+  <h1>Изменение пароля существующей учетной записи</h1>
+  <form class="form"
+        *ngIf="form"
+        [formGroup]="form"
+        (submit)="changePassword()"
+  >
+    <div class="row">
+      <label class="form-label">
+        <input
+          [class.form-control_error]="form.get('email')?.invalid && form.get('email')?.touched"
+          type="email"
+          class="form-control"
+          placeholder="Email"
+          formControlName="email">
+        <span class="validation" *ngIf="form.get('email')?.invalid">
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.emailNotFound">Учетной записи с таким email нет</span>
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.required">Поле обязательно</span>
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.email">Укажите корректный email</span>
+        </span>
+      </label>
+    </div>
+    <div class="row">
+      <label class="form-label">
+        <input
+          [class.form-control_error]="form.get('password1')?.invalid && form.get('password1')?.touched"
+          type="password"
+          class="form-control"
+          placeholder="Новый пароль"
+          formControlName="password1">
+        <span class="validation" *ngIf="form.get('password1')?.invalid">
+          <span class="form-error" *ngIf="form.get('password1')?.touched && form.get('password1')?.errors?.required">Поле обязательно</span>
+          <span class="form-error" *ngIf="form.get('password1')?.touched && form.get('password1')?.errors?.minlength">Пароль должен содержать не менее 4 символов</span>
+          <span class="form-error" *ngIf="form.get('password1')?.touched && form.get('password1')?.errors?.maxlength">Пароль должен содержать не более 20 символов</span>
+        </span>
+      </label>
+    </div>
+    <div class="row">
+      <label class="form-label">
+        <input
+          [class.form-control_error]="form.get('password2')?.invalid && form.get('password2')?.touched || form.errors?.notEqualPasswords"
+          type="password"
+          class="form-control"
+          placeholder="Повторите пароль"
+          formControlName="password2">
+        <span class="validation" *ngIf="form.get('password2')?.invalid || form.errors?.notEqualPasswords">
+          <span class="form-error" *ngIf="form.get('password2')?.touched && form.get('password2')?.errors?.required">Поле обязательно</span>
+          <span class="form-error" *ngIf="form.get('password2')?.touched && form.get('password2')?.errors?.minlength">Пароль должен содержать не менее 4 символов</span>
+          <span class="form-error" *ngIf="form.get('password2')?.touched && form.get('password2')?.errors?.maxlength">Пароль должен содержать не более 20 символов</span>
+          <span class="form-error" *ngIf="form.get('password2')?.touched && form.errors?.notEqualPasswords">Пароли не совпадают</span>
+        </span>
+      </label>
+    </div>
+    <div class="buttons">
+      <a routerLink="/auth" class="btn btn-primary">Назад</a>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Сохранить новый пароль</button>
+    </div>
+  </form>
+</div>

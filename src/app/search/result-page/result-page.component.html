@@ -1,0 +1,5 @@
+<app-result-table [questions]="questions"></app-result-table>
+<div class="row justify-content-center">
+  <button *ngIf="hasMore" (click)="loadMoreQuestion()" type="button" class="btn btn-primary load-more-button">Загрузить ещё результаты</button>
+</div>
+<app-quick-panel></app-quick-panel>

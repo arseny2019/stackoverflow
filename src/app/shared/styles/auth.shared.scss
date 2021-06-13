@@ -1,0 +1,26 @@
+@import "../../../assets/scss/vars";
+
+.form-page-container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.form {
+  &-error {
+    margin-top: 2px;
+    color: $red-200;
+    display: block;
+  }
+
+  &-control {
+    &_error {
+      border: 1px solid $red-200;
+    }
+  }
+}
+
+.buttons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}

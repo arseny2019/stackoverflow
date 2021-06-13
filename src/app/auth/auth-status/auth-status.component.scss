@@ -1,0 +1,14 @@
+@import "src/assets/scss/vars";
+
+.status {
+  margin-top: 24px;
+  font-size: 1.2rem;
+
+  &_error {
+    color: $red-200;
+  }
+
+  &_success {
+    color: $teal
+  }
+}

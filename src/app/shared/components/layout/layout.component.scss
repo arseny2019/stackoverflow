@@ -1,0 +1,42 @@
+@import "src/assets/scss/vars";
+
+.container {
+  padding: 0;
+}
+
+.layout {
+  padding: 60px 0 120px;
+}
+
+header {
+  position: relative;
+  margin: 20px 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account {
+  display: flex;
+  column-gap: 24px;
+  font-size: 1.2rem;
+
+  &__name {
+    margin: 0;
+    color: $link-color;
+  }
+
+  &__logout {
+    color: $red-200;
+    cursor: pointer;
+  }
+}
+
+.home-link {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: $link-color;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}

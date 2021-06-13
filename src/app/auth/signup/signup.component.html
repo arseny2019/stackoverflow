@@ -1,0 +1,43 @@
+<div class="form-page-container">
+  <h1>Создание учетной записи</h1>
+  <form class="form"
+        *ngIf="form"
+        [formGroup]="form"
+        (submit)="createAccount()"
+  >
+    <div class="row">
+      <label class="form-label">
+        <input
+          [class.form-control_error]="form.get('email')?.invalid && form.get('email')?.touched"
+          type="email"
+          class="form-control"
+          placeholder="Email"
+          formControlName="email">
+        <span class="validation" *ngIf="form.get('email')?.invalid">
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.emailAlreadyUsed">Такой email уже используется</span>
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.required">Поле обязательно</span>
+          <span class="form-error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.email">Укажите корректный email</span>
+        </span>
+      </label>
+    </div>
+    <div class="row">
+      <label class="form-label">
+        <input
+          [class.form-control_error]="form.get('password')?.invalid && form.get('password')?.touched"
+          type="password"
+          class="form-control"
+          placeholder="Пароль"
+          formControlName="password">
+        <span class="validation" *ngIf="form.get('password')?.invalid">
+          <span class="form-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors?.required">Поле обязательно</span>
+          <span class="form-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors?.minlength">Пароль должен содержать не менее 4 символов</span>
+          <span class="form-error" *ngIf="form.get('password')?.touched && form.get('password')?.errors?.maxlength">Пароль должен содержать не более 20 символов</span>
+        </span>
+      </label>
+    </div>
+    <div class="buttons">
+      <a routerLink="/auth" class="btn btn-primary">Назад</a>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Создать учетную запись</button>
+    </div>
+  </form>
+</div>

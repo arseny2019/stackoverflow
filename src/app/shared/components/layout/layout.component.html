@@ -1,0 +1,19 @@
+<div class="layout">
+  <div class="container">
+    <header>
+      <a routerLink="/"><img [src]="'/assets/img/logo.png'" alt="StackOverflow"></a>
+      <div class="header__aside">
+        <div *ngIf="user" class="account">
+          <p class="account__name">{{user}}</p>
+          <a (click)="logout()" class="account__logout">Выйти</a>
+        </div>
+      </div>
+      <a routerLink="/" class="home-link" *ngIf="showSearchLink">Назад к поиску</a>
+    </header>
+    <div
+      [@routeAnimation]="prepareRoute(outlet)"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </div>
+</div>

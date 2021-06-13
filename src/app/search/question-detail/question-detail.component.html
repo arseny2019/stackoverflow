@@ -1,0 +1,20 @@
+<section class="question-detail">
+  <ng-container *ngIf="question">
+    <article class="question">
+      <h1 [innerHTML]="sanitize(question.title)"></h1>
+      <div class="question__body" [innerHTML]="sanitize(question.body)"></div>
+      <p>Вопрос задал <strong [innerHTML]="sanitize(question.owner.display_name)"></strong> {{(question.creation_date * 1000) | date: 'd MMMM, y, в h:mm': 'UTC': 'ru'}}</p>
+      <p>Количество просмотров: <span [innerHTML]="sanitize(question.view_count.toString())"></span></p>
+    </article>
+    <div class="answers" *ngIf="question.answers && question.answers.length > 0; else noAnswers">
+      <h1>Ответы</h1>
+      <article class="answer" *ngFor="let answer of question.answers">
+        <p>Ответ дан <strong [innerHTML]="sanitize(question.owner.display_name)"></strong> {{(answer.creation_date * 1000) | date: 'd MMMM, y, в h:mm': 'UTC': 'ru'}}</p>
+        <div class="answer__body" [innerHTML]="sanitize(answer.body)"></div>
+      </article>
+    </div>
+  </ng-container>
+  <ng-template #noAnswers>
+    <h3 style="margin-top: 60px;">На этот вопрос пока ещё никто не ответил...</h3>
+  </ng-template>
+</section>

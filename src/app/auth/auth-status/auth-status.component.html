@@ -1,0 +1,5 @@
+<p *ngIf="status.message"
+   [class.status_error]="status.type === 'fail'"
+   [class.status_success]="status.type === 'success'"
+   class="status"
+>{{status.message}}</p>

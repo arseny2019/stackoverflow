@@ -1,0 +1,24 @@
+<div class="panel" [class.panel_active]="isActive">
+  <div class="panel__scroll-container">
+    <div class="panel__container">
+      <div class="panel__row">
+        <button class="btn btn-dark panel__close" (click)="hidePanel()">Закрыть</button>
+      </div>
+      <ng-container [ngSwitch]="type">
+        <ng-container *ngSwitchCase="'author'">
+          <h1>Наиболее популярные вопросы пользователя <strong [innerHTML]="sanitize(title)"></strong></h1>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tag'">
+          <h1>Наиболее популярные вопросы по тегу <strong [innerHTML]="sanitize(title)"></strong></h1>
+        </ng-container>
+        <ng-container *ngIf="type !== 'none'">
+          <app-result-table [questions]="questions"></app-result-table>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="panel__overlay" (click)="hidePanel()"></div>
+</div>
+
+
+

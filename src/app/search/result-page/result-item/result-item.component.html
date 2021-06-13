@@ -1,0 +1,20 @@
+<div class="table-row" *ngIf="question">
+  <div class="cell">
+    <a
+      (click)="showAuthorTable({user_id: question.owner.user_id, display_name: question.owner.display_name})"
+      [innerHTML]="sanitize(question.owner.display_name)">
+    </a>
+  </div>
+  <div class="cell"><a [routerLink]="['/question', question.question_id]" [innerHTML]="sanitize(question.title)"></a></div>
+  <div class="cell"><a [routerLink]="['/question', question.question_id]">{{question.answer_count}}</a></div>
+  <div class="cell">
+    <ng-container *ngFor="let tag of question.tags; let i = index">
+      <ng-container *ngIf="i < question.tags.length - 1; else lastTag">
+        <a (click)="showTagTable(tag)">{{tag}}</a>,
+      </ng-container>
+      <ng-template #lastTag>
+        <a (click)="showTagTable(tag)">{{tag}}</a>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

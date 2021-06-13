@@ -1,0 +1,75 @@
+$mobile-width: 415px;
+$mobile-l-width: 538px;
+$tablet-width: 769px;
+$desktop-width: 1025px;
+$medium-desktop-width: 1377px;
+$wide-width: 1920px;
+
+$link-color: #0d6efd;
+$red-200: #DC3545;
+$gray-100: #fbfbfb;
+$gray-200: #e4e4e4;
+$teal: #20c997;
+$main-black: #171717;
+$overlay-black: rgba(0, 0, 0, 0.4);
+$card-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.2);
+
+@mixin mobile-s {
+  @media (max-width: #{$mobile-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-l {
+  @media (max-width: #{$mobile-l-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin less-than-mobile {
+  @media (max-width: #{$tablet-width - 2px}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin medium-desktop {
+  @media (max-width: #{$medium-desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: #{$wide-width}) {
+    @content;
+  }
+}
+
+@mixin font($size, $height: $size, $weight: normal) {
+  font-size: $size + px;
+  line-height: $height + px;
+  font-weight: $weight;
+}

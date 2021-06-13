@@ -1,0 +1,12 @@
+<div class="result-table" *ngIf="questions && questions.length > 0; else noQuestions">
+  <div class="table-row table-head">
+    <div class="cell">Автор</div>
+    <div class="cell">Тема</div>
+    <div class="cell">Ответы</div>
+    <div class="cell">Теги</div>
+  </div>
+  <div class="tbody">
+    <app-result-item *ngFor="let question of questions" [question]="question"></app-result-item>
+  </div>
+</div>
+<ng-template #noQuestions><p>Вопросов по данному запросу не найдено</p></ng-template>

@@ -1,0 +1,19 @@
+@import "src/assets/scss/vars";
+
+.table-row {
+  transition: 100ms;
+  border-bottom: 1px solid $gray-200;
+
+  &:hover {
+    background-color: $gray-200;
+  }
+
+  & a {
+    transition: 200ms;
+    cursor: pointer;
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "src/assets/scss/vars";
+
+.question {
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+
+  & pre {
+    border-radius: 5px;
+    margin: 0;
+    padding: 12px;
+  }
+
+  &-detail {
+    padding: 0 100px;
+
+    @include mobile {
+      padding: 0 20px;
+    }
+
+    @include mobile-s {
+      padding: 0;
+    }
+  }
+
+  &__body {
+    margin-top: 32px;
+
+    @include mobile {
+      margin-top: 24px;
+    }
+
+    @include mobile-s {
+      margin-top: 16px;
+    }
+  }
+}
+
+.answers {
+  margin-top: 80px;
+}
+
+.answer {
+  padding: 24px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+}
+
+::ng-deep pre {
+  background-color: $gray-200;
+  border-radius: 5px;
+  margin: 0 0 1rem;
+  padding: 12px;
+}
