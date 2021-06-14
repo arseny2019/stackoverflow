@@ -4,6 +4,7 @@
   padding: 24px;
   border-radius: 12px;
   box-shadow: $card-shadow;
+  overflow: hidden;
 
   & pre {
     border-radius: 5px;
@@ -45,6 +46,7 @@
   margin-bottom: 40px;
   border-radius: 12px;
   box-shadow: $card-shadow;
+  overflow: hidden;
 
   &:nth-last-child(1) {
     margin-bottom: 0;
@@ -56,4 +58,11 @@
   border-radius: 5px;
   margin: 0 0 1rem;
   padding: 12px;
+}
+
+.home-link {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: $link-color;
+  margin-bottom: 20px;
 }

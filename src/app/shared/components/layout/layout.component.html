@@ -8,7 +8,6 @@
           <a (click)="logout()" class="account__logout">Выйти</a>
         </div>
       </div>
-      <a routerLink="/" class="home-link" *ngIf="showSearchLink">Назад к поиску</a>
     </header>
     <div
       [@routeAnimation]="prepareRoute(outlet)"

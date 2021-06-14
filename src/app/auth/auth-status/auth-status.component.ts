@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthStatus, AuthStatusType } from '../auth.model';
-import { AuthService } from '../auth.service';
+import { AuthStatus } from '../auth.model';
+import { AuthStatusService } from './auth-status.service';
 
 @Component({
   selector: 'app-auth-status',
@@ -10,12 +10,10 @@ import { AuthService } from '../auth.service';
 export class AuthStatusComponent {
 
   get status(): AuthStatus {
-    return this.authService.status$.getValue();
+    return this.authStatusService.status$.getValue();
   }
 
-  constructor(private authService: AuthService) {
-    this.authService.status$.subscribe(
-      () => setTimeout(() => this.authService.status$.next({ type: AuthStatusType.Success, message: '' }), 7000)
-    );
+  constructor(private authStatusService: AuthStatusService) {
+    this.authStatusService.status$.subscribe();
   }
 }

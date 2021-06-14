@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { slideInAnimation } from '../../animations';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -13,24 +14,27 @@ export class LayoutComponent {
   showSearchLink = false;
 
   get user(): string {
-    return JSON.parse(<string>localStorage.getItem('loggedUser'))?.email;
+    return this.authService.currentUser;
   }
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
     ).subscribe(
       e => {
-        this.showSearchLink = (<NavigationEnd>e).url.includes('result') || (<NavigationEnd>e).url.includes('question');
+        this.showSearchLink = e.url.includes('result') || e.url.includes('question');
       }
     )
   }
 
   prepareRoute(outlet: RouterOutlet): boolean {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+    return outlet?.activatedRouteData?.animation;
   }
 
   logout() {
-    this.router.navigate([ 'auth' ], { queryParams: { logout: true } })
+    this.authService.logoutAccount();
   }
 }

@@ -7,6 +7,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SearchService {
+  searchQuery = '';
+
   constructor(private http: HttpClient) { }
 
   getPosts(title: string, tag: string, page: number, pagesize: number): Observable<ArchiveQuestionResponse> {
@@ -24,14 +26,15 @@ export class SearchService {
       params.sort = 'votes';
     } else {
       params.title = title;
+      this.searchQuery = title;
     }
-    return this.http.get<ArchiveQuestionResponse>('https://api.stackexchange.com/2.2/search/advanced', {
+    return this.http.get<ArchiveQuestionResponse>(`${environment.dbUrl}/search/advanced`, {
       params: { ...params }
     });
   }
 
   getSinglePost(id: string): Observable<DetailQuestion> {
-    return this.http.get<ArchiveQuestionResponse>(`https://api.stackexchange.com/2.2/questions/${id}`, {
+    return this.http.get<ArchiveQuestionResponse>(`${environment.dbUrl}/questions/${id}`, {
       params: {
         site: environment.siteDomain,
         key: environment.key,
@@ -45,7 +48,7 @@ export class SearchService {
   }
 
   getPostsByAuthor(user: User, pagesize: number): Observable<ArchiveQuestionResponseByAuthor> {
-    return this.http.get<ArchiveQuestionResponse>(`https://api.stackexchange.com/2.2/users/${user.user_id}/questions`, {
+    return this.http.get<ArchiveQuestionResponse>(`${environment.dbUrl}/users/${user.user_id}/questions`, {
       params: {
         pagesize,
         site: environment.siteDomain,

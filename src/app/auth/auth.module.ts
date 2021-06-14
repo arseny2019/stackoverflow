@@ -6,14 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from './auth.service';
 import { LoginComponent } from './login/login.component';
 import { AuthRoutingModule } from './auth.routing';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { AuthStatusComponent } from './auth-status/auth-status.component';
-import { AuthGuard } from './auth.guard';
-import { LoggedGuard } from './logged.guard';
 
 @NgModule({
   declarations: [
@@ -32,11 +29,6 @@ import { LoggedGuard } from './logged.guard';
     AuthRoutingModule,
     MatIconModule,
     MatButtonModule
-  ],
-  providers: [
-    AuthService,
-    AuthGuard,
-    LoggedGuard
   ]
 })
 export class AuthModule {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-search-page',
@@ -6,10 +6,5 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: [ './search-page.component.scss' ]
 })
 export class SearchPageComponent {
-  @ViewChild('search') searchInput?: ElementRef;
   searchString = '';
-
-  updateURL(e: Event) {
-    this.searchString = (e.target as HTMLInputElement).value
-  }
 }

@@ -31,10 +31,14 @@ export class ResultItemComponent {
   }
 
   showAuthorTable(user: User): void {
-    this.makeTableQuery$.next({ type: PanelType.Author, param: user });
+    this.query({ type: PanelType.Author, param: user });
   }
 
   showTagTable(tag: string): void {
-    this.makeTableQuery$.next({ type: PanelType.Tag, param: tag });
+    this.query({ type: PanelType.Tag, param: tag });
+  }
+
+  query(params: PanelQueryParams): void {
+    this.makeTableQuery$.next(params);
   }
 }

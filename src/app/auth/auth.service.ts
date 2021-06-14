@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import { Account, AuthStatus, AuthStatusType } from './auth.model';
+import { Account, AuthStatusType } from './auth.model';
+import { AuthStatusService } from './auth-status/auth-status.service';
 
 @Injectable()
 export class AuthService {
   users$: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>(this.getUsers());
-  status$: BehaviorSubject<AuthStatus> = new BehaviorSubject<AuthStatus>({ type: AuthStatusType.Success, message: '' });
+  currentUser$: BehaviorSubject<string> = new BehaviorSubject<string>(JSON.parse(<string>localStorage.getItem('loggedUser'))?.email);
 
   get isLogged(): boolean {
     return !!(localStorage.getItem('loggedUser') && new Date().getTime() < new Date(<string>localStorage.getItem('expireDate')).getTime());
   }
 
-  constructor(private router: Router) {
+  get currentUser(): string {
+    return this.currentUser$.getValue();
+  }
+
+  constructor(
+    private router: Router,
+    private authStatusService: AuthStatusService
+  ) {
     this.users$.subscribe(users => {
       localStorage.setItem('users', JSON.stringify(users));
-    })
+    });
+    this.currentUser$.subscribe();
   }
 
   login(acc: Account) {
@@ -23,16 +32,16 @@ export class AuthService {
     if (user && user.password === acc.password) {
       this.authAccount(acc);
     } else if (user && user.password !== acc.password) {
-      this.status$.next({ type: AuthStatusType.Fail, message: 'Неверный пароль' })
+      this.authStatusService.updateStatus({ type: AuthStatusType.Fail, message: 'Неверный пароль' })
     } else {
-      this.status$.next({ type: AuthStatusType.Fail, message: `Пользователь ${acc.email} не найден` })
+      this.authStatusService.updateStatus({ type: AuthStatusType.Fail, message: `Пользователь ${acc.email} не найден` })
     }
   }
 
   createAccount(acc: Account): boolean {
     const existed = this.users$.getValue().filter(user => user.email === acc.email).length > 0;
     if (existed) {
-      this.status$.next({
+      this.authStatusService.updateStatus({
         type: AuthStatusType.Fail,
         message: `Пользователь ${acc.email} уже зарегестрирован. Воспользуйтесь функцией восстановления пароля`
       })
@@ -53,7 +62,7 @@ export class AuthService {
   saveAccount(acc: Account) {
     const updatedDB = [ ...this.users$.getValue(), acc ];
     this.users$.next(updatedDB);
-    this.status$.next({
+    this.authStatusService.updateStatus({
       type: AuthStatusType.Success,
       message: `Учетная запись ${acc.email} успешно создана`
     });
@@ -65,7 +74,7 @@ export class AuthService {
     let acc = <Account>db.find(user => user.email === updatedAcc.email);
     db.splice(db.indexOf(acc), 1, updatedAcc);
     this.users$.next(db);
-    this.status$.next({
+    this.authStatusService.updateStatus({
       type: AuthStatusType.Success,
       message: `Учетная запись ${updatedAcc.email} успешно обновлена`
     });
@@ -75,11 +84,15 @@ export class AuthService {
   authAccount(acc: Account) {
     localStorage.setItem('loggedUser', JSON.stringify(acc));
     localStorage.setItem('expireDate', new Date(new Date().getTime() + 3600000).toString());
+    this.currentUser$.next(acc.email);
     this.router.navigate([ '/' ]);
   }
 
   logoutAccount() {
     localStorage.removeItem('loggedUser');
     localStorage.removeItem('expireDate');
+    this.currentUser$.next('');
+    this.authStatusService.updateStatus({ type: AuthStatusType.Fail, message: 'Авторизуйтесь для использования приложения' });
+    this.router.navigate([ 'auth' ]);
   }
 }

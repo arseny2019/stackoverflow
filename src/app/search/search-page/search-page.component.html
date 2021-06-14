@@ -1,4 +1,10 @@
-<div class="search-container">
-  <input #search (input)="updateURL($event)" type="text" class="form-control" placeholder="Введите ключевую фразу">
-  <a [routerLink]="['/result', searchString]" type="button" class="btn btn-primary">Поиск</a>
-</div>
+<form class="search-container">
+  <input
+    [(ngModel)]="searchString"
+    [ngModelOptions]="{standalone: true}"
+    type="text"
+    class="form-control"
+    placeholder="Введите ключевую фразу">
+  <button [routerLink]="['/result', searchString]" type="submit" class="btn btn-primary">Поиск</button>
+</form>
+

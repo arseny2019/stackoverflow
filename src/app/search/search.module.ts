@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ResultPageComponent } from './result-page/result-page.component';
@@ -26,7 +27,8 @@ import { AuthGuard } from '../auth/auth.guard';
   imports: [
     CommonModule,
     RouterModule,
-    SearchRoutingModule
+    SearchRoutingModule,
+    FormsModule
   ],
   providers: [
     SearchService,

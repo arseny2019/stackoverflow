@@ -1,3 +1,4 @@
+<a [routerLink]="['/']" class="home-link">Назад к поиску</a>
 <app-result-table [questions]="questions"></app-result-table>
 <div class="row justify-content-center">
   <button *ngIf="hasMore" (click)="loadMoreQuestion()" type="button" class="btn btn-primary load-more-button">Загрузить ещё результаты</button>

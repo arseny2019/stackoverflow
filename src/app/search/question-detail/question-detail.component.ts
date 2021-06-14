@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DetailQuestion } from '../search.model';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-question-detail',
@@ -11,9 +12,14 @@ import { DetailQuestion } from '../search.model';
 export class QuestionDetailComponent {
   @Input() question?: DetailQuestion;
 
+  get searchStr(): string {
+    return this.searchService.searchQuery;
+  }
+
   constructor(
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private searchService: SearchService
   ) {
     this.route.data.subscribe((data: Data) => {
       this.question = data.question;

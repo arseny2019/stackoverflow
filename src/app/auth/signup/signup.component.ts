@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { AuthStatus } from '../auth.model';
+import { AuthStatusService } from '../auth-status/auth-status.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,11 +14,12 @@ export class SignupComponent {
   form?: FormGroup;
 
   get status(): AuthStatus {
-    return this.authService.status$.getValue();
+    return this.authStatusService.status$.getValue();
   }
 
   constructor(
     private authService: AuthService,
+    private authStatusService: AuthStatusService,
     private router: Router
   ) {
     this.form = new FormGroup({

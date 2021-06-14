@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStatusType } from '../auth.model';
+import { AuthStatusService } from '../auth-status/auth-status.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.scss' ]
 })
-export class LoginComponent implements OnInit {
-  form?: FormGroup;
+export class LoginComponent {
+  form: FormGroup;
 
   constructor(
     private authService: AuthService,
+    private authStatusService: AuthStatusService,
     private route: ActivatedRoute
   ) {
     this.form = new FormGroup({
@@ -30,19 +32,12 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params['logout']) {
         this.authService.logoutAccount();
-        this.authService.status$.next({ type: AuthStatusType.Fail, message: 'Авторизуйтесь для работы с приложением' })
+        this.authStatusService.updateStatus({ type: AuthStatusType.Fail, message: 'Авторизуйтесь для работы с приложением' })
       }
     });
   }
 
-  ngOnInit(): void {
-  }
-
   login() {
-    this.authService.login({
-        email: this.form?.get('email')?.value,
-        password: this.form?.get('password')?.value
-      }
-    )
+    this.authService.login(this.form.value)
   }
 }

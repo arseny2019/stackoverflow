@@ -5,9 +5,8 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { SearchModule } from './search/search.module';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { CoreModule } from './shared/core.module';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -20,8 +19,7 @@ registerLocaleData(localeRu, 'ru');
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AuthModule,
-    SearchModule
+    CoreModule
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'ru' } ],
   bootstrap: [ AppComponent ]
